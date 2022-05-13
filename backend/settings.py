@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-# django 主要使用的文件
+# the main file of 
 
 
 from pathlib import Path
