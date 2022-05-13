@@ -7,9 +7,12 @@ from accounts.models import *
 
 # Create your views here.
 def index(request):
-     return render(request,'index.html')
+    return render(request,'index.html')
  
 
+"""
+Bitten Coin charge (0.1 rmb)
+""" 
 def bill1(request):
     alipay = AliPay(
         appid="2021000119666477",
@@ -29,7 +32,10 @@ def bill1(request):
     cli.save()
     url='https://openapi.alipaydev.com/gateway.do?{0}'.format(res)
     return redirect(url)
- 
+
+"""
+Bitten Coin charge (0.5 rmb)
+"""  
 def bill2(request):
     alipay = AliPay(
         appid="2021000119666477",
@@ -49,7 +55,10 @@ def bill2(request):
     cli.save()
     url='https://openapi.alipaydev.com/gateway.do?{0}'.format(res)
     return redirect(url)
- 
+
+"""
+Bitten Coin charge (328 rmb)
+"""  
 def bill3(request):
     alipay = AliPay(
         appid="2021000119666477",
@@ -70,7 +79,9 @@ def bill3(request):
     url='https://openapi.alipaydev.com/gateway.do?{0}'.format(res)
     return redirect(url)
  
- 
+"""
+Redirect after paying is complete (method == 'GET')
+"""  
 def show(request):
     if request.method == 'GET':
         alipay = AliPay(
@@ -84,14 +95,16 @@ def show(request):
         param=request.GET.dict() 
         sign=param.pop('sign', None)  
         statu = alipay.verify(param,sign)
-        if statu:
+        if statu: # payment success
             return redirect("Profile")
-        else:
+        else: # payment failed
             return render(request, 'show.html', {'msg': 'Payment Failed'})
     else:
         return render(request, 'show.html', {'msg': 'Accept GET method only.'})
  
- 
+"""
+Redirect after paying is complete (method == 'POST')
+"""  
 def check(request):
     if request.method=='POST':
         alipay=AliPay(appid="2021000119666477",
@@ -108,9 +121,9 @@ def check(request):
             post_dict[k] = v[0]
         sign = post_dict.pop('sign', None)
         status = alipay.verify(post_dict, sign)
-        if status:  # 支付成功
+        if status:  # payment success
             return HttpResponse('Payment Success')
-        else:
+        else: # payment failed
             return HttpResponse('Payment Failed')
     else:
         return HttpResponse('Accept POST method only')
