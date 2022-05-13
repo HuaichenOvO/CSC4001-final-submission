@@ -30,8 +30,6 @@ urlpatterns = [
 	path('login/', views.loginPage, name="Login"),  
 	path('logout/', views.logoutUser, name="Logout"),
 	path('verify/<str:token>', views.verify),
-	# path('valid_success/', views.logoutUser, name="Logout"),
-	# path('valid_failure/', views.logoutUser, name="Logout"),
 
     # real net part:
     path('profile/', views.profile, name= "Profile"),

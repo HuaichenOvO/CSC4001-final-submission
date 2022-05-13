@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-# 路由系统，和views文件一同进行网页的提供和渲染
+# shows how to render the urls
 
 from django.contrib import admin
 from django.urls import path, include

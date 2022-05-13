@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-# the main file of 
+# the main file of settings control of the project
 
 
 from pathlib import Path
@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['have-you-eaten.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,7 +60,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # DIRS： 用于让系统识别新加入的APP中存放的html文件
+        # DIRS： help the proj recognize the static files stored
         'DIRS': [
             'accounts/templates'
             'static'    
@@ -85,7 +84,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # --------------- Local Database ---------------
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -139,9 +137,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-# new
-
 STATIC_URL = '/static/'
 
 STATICFILES_DIR = [
@@ -162,12 +157,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # --------------- Email Settings---------------
+# !!!!!!
+# no that, concerning the privacy, we did not show the qq email
+# and the password, please view the results on the server delpoyed
+# https://have-you-eaten.herokuapp.com/
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = '1007591290@qq.com'
-EMAIL_HOST_PASSWORD = 'dwsucnvrbvmebfid'
+EMAIL_HOST_USER = '1234@qq.com'
+EMAIL_HOST_PASSWORD = 'xxyyzz'
 DEFAULT_FROM_EMAIL = 'default from email'
 
 

@@ -21,7 +21,12 @@ from .forms import *
 # Create your views here.
 
 
-#------------------------ user stuffs ------------------------
+#------------------------ For All Visitors ------------------------
+"""
+registerPage(): 
+This function renders the page where a visitor 
+wants to register as a new user.
+"""
 @unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
@@ -62,6 +67,16 @@ def registerPage(request):
     context = {'form':form}
     return render(request, 'real_nets/register.html', context)
 
+"""
+loginPage(): 
+This function renders the page where a visitor clicks the
+confirm email and enters this website.
+In this page, the TOKEN info will be used to
+create the USER nad CLIENT instance.
+for USER, this is a default django table, 
+we make a 1-to-1 connection with USER anc CLIENT
+for TOKEN and CLIENT and the 1-to-1 details, please see view.py; 
+"""
 @unauthenticated_user
 def verify(request, token):
     try:
@@ -105,7 +120,11 @@ def verify(request, token):
     context = {}
     return render(request, 'real_nets/valid_success.html', context)
 
-
+"""
+loginPage(): 
+This function renders the page where a visitor tries to login.
+It includes a form for the visitor to input the account info.
+"""
 @unauthenticated_user
 def loginPage(request):
 	if request.method == 'POST':
@@ -127,13 +146,22 @@ def logoutUser(request):
 	logout(request)
 	return redirect('Login')
 
-#------------------------ Real Net Parts ------------------------
+#------------------------ For Logged in Users ------------------------
+"""
+tasks(): 
+This function renders the page that lists 1. one user's posts and 2. all other users' posts
+a "post" listed in this page is an order that nobody acts as an sender
+"""
 @login_required(login_url='Login')
 def profile(request):
     user = request.user
     context = {"usr": user}
     return render(request, 'real_nets/profile.html', context)
 
+"""
+profile_update(): 
+This function renders the page that one user upload the profile of oneself
+"""
 @login_required(login_url='Login')
 def profile_update(request):
     try:
@@ -159,6 +187,11 @@ def profile_update(request):
     context = {"form": form}
     return render(request, 'real_nets/profile_update.html', context)
 
+"""
+tasks(): 
+This function renders the page that lists 1. one user's posts and 2. all other users' posts
+a "post" listed in this page is an order that nobody acts as an sender
+"""
 @login_required(login_url='Login')
 def tasks(request):
     other_tasks = Task.objects.exclude(buyer=request.user)
@@ -209,6 +242,10 @@ def tasks(request):
 
     return render(request, 'real_nets/tasks.html', context)
 
+"""
+tasks_create(): 
+This function renders the page that users post new orders for themselves
+"""
 @login_required(login_url='Login')
 def tasks_create(request, pk):
     context = {}
@@ -253,6 +290,11 @@ def tasks_create(request, pk):
     context = {"form": form}
     return render(request, 'real_nets/tasks_create.html', context)
 
+"""
+delivery(): 
+This function renders the page that lists one user's deliveries
+an "delivery" listed in this page is an order where the user acts as the food sender
+"""
 @login_required(login_url='Login')
 def delivery(request):
     # deliveries = Order.objects.filter(buyer.id==request.user.id)
@@ -283,6 +325,13 @@ def delivery(request):
 
     return render(request, 'real_nets/delivery.html', context)
 
+"""
+order(): 
+This function renders the page that lists one user's orders
+an "order" listed in this page is an order 
+where the user acts as the food sender
+for the database's order table, please refer to views.py
+"""
 @login_required(login_url='Login')
 def order(request):
     orders1 = Order.objects.filter(Q(buyer=request.user.id) & Q(status="Pending") | Q(status="Sending") | Q(status="Claiming"))
@@ -318,6 +367,10 @@ def order(request):
 
     return render(request, 'real_nets/order.html', context)
 
+"""
+address(): 
+This function renders the page that lists one user's addresses
+"""
 @login_required(login_url='Login')
 def address(request):
     addrs = Address.objects.filter(owner=request.user.id)
@@ -343,6 +396,10 @@ def address(request):
             render(request, 'real_nets/address.html', context) 
     return render(request, 'real_nets/address.html', context)
 
+"""
+address_create(): 
+This function renders the page that users add new address for themselves
+"""
 @login_required(login_url='Login')
 def address_create(request, pk):
     #调用form中的注册表并渲染进url指定的html文件中
