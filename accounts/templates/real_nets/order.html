@@ -1,0 +1,121 @@
+{% extends 'includes/model.html' %}
+{% load static%}
+{% block content %}
+<style>
+    .icon {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+<h2 style="text-align:center; font-weight: 900; color: orange">Order Page</h2>
+
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body bg-light">
+            <br>
+            <h3 style="font-weight: 900; color: rgb(83, 185, 0)"> <img class="icon" src="{% static 'img/timer.png' %}" alt="My image">&nbsp; Processing</h3>
+            <br>
+            <table class="table">
+                <tr>
+                    <th>Buyer</th>
+                    <th>sender</th>
+                    <th>Coin Reward</th>
+                    <th>Fetch address</th>
+                    <th>Destination</th>
+                    <th>Phone Number</th>
+                    <th>Status</th>
+                    <th>Operation</th>
+                </tr>
+
+
+                {% for order in order1 %}
+                <tr>
+                    <td>{{order.buyer.client.nick_name}}</td>
+                    <td>{{order.sender.client.nick_name}}</td>
+                    <td>{{order.coin_reward}}</td>
+                    <td>{{order.take_addr}}</td>
+                    <td>{{order.send_addr}}</td>
+                    <td>{{order.sender.client.phone}}</td>
+                    <td style="color: rgb(83, 185, 0)">{{order.status}}</td>
+                    <td>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="Submit" value=Received@{{order.id}}
+                                class="btn btn-sm btn-success">Received</button>
+                            {% if order.can_cancel %}
+                            <button type="submit" name="Submit" value=Cancel@{{order.id}}
+                                class="btn btn-sm btn-warning">Cancel</button>
+                            {% else %}
+                            <h4 class="btn btn-sm disabled">Cancel</h4>
+                            {% endif %}
+                        </form>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if not order1.count %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        No history
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                {% endif %}
+            </table>
+            <br>
+            <h3 style="font-weight: 900; color: grey"><img class="icon" src="{% static 'img/history.png' %}" alt="My image">&nbsp; History</h3>
+            <br>
+            <table class="table">
+                <tr>
+                    <th>Buyer</th>
+                    <th>sender</th>
+                    <th>Coin Reward</th>
+                    <th>Fetch address</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                </tr>
+                {% for order in order2 %}
+                <tr>
+                    <td>{{order.buyer.client.nick_name}}</td>
+                    <td>{{order.sender.client.nick_name}}</td>
+                    <td>{{order.coin_reward}}</td>
+                    <td>{{order.take_addr}}</td>
+                    <td>{{order.send_addr}}</td>
+                    <td style="color: rgb(83, 185, 0)">{{order.status}}</td>
+                </tr>
+                {% endfor %}
+
+                {% if not order2.count %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        No history
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endif %}
+
+            </table>
+        </div>
+    </div>
+
+</div>
+<script>
+    {% for msg in messages %}
+    alert('{{ msg.message }}');
+    {% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'includes/model.html' %}
+
+{% block content %}
+
+<h2 style=" font-weight: 900; color: rgb(83, 185, 0)">Post Task</h2>
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body bg-light">
+            <form method="POST" action="" enctype="multipart/form-data">
+                <table class="table">
+                    {% csrf_token %}
+                    <tr>
+                        <th>Coin Reward</th>
+                        <th>{{form.coin_reward}}</th>
+                    </tr>
+                    <tr>
+                        <th>Fetch Address</th>
+                        <th>{{form.take_addr}}</th>
+                    </tr>
+                    <tr>
+                        <th>Destination</th>
+                        <th>{{form.send_addr}}</th>
+                    </tr>
+                    <tr>
+                        <th>Time Limit</th>
+                        <th>{{form.exp_min}}</th>
+                    </tr>
+                    <tr>
+                        <th>Note</th>
+                        <th>{{form.note}}</th>
+                    </tr>
+                    <tr>
+                        <th>Food Information</th>
+                        <th>{{form.food_info}}</th>
+                    </tr>
+                    <!-- <button name="Submit" value="create_task">create task</button> -->
+                </table>
+                <input class="btn btn-primary" type="submit" name="Submit" value="confirm" style="float: right">
+            </form>
+            <script>
+                {% for msg in messages %}
+                alert('{{ msg.message }}');
+                {% endfor %}
+            </script>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'includes/model.html' %}
+{%load static%}
+{% block content %}
+
+<h2 style="text-align:center; font-weight: 900; color: orange">Address Addition</h2>
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body bg-light">
+            <form action="" method="post">
+
+                <table class="table" style="font-weight: 900; color: grey">
+                    {% csrf_token %}
+                    <tr>
+                        <th>Area</th>
+                        <th>{{form.area}}</th>
+                    </tr>
+                    <tr>
+                        <th>Building</th>
+                        <th>{{form.building}}</th>
+                    </tr>
+                    <tr>
+                        <th>Room_number</th>
+                        <th>{{form.number}}</th>
+                    </tr>
+                    </tr>
+                </table>
+
+                <!-- <button name="Submit" value="create_task">create task</button> -->
+                <div style="text-align:center"><input class="btn btn-success" type="submit" name="Submit" value="create_address"></div>
+            </form>
+            <tr>{{form.errors}}</tr>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

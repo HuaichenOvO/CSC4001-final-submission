@@ -1,0 +1,70 @@
+{% extends 'includes/model.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .buy {
+        width: 150px;
+        text-align: center;
+    }
+
+    .price {
+        text-align:center; 
+        font-weight: 900; 
+        color: skyblue;
+        font-size: 20px;
+        height: 50px;
+    }
+</style>
+<h1 style="text-align:center; font-weight: 900; color: orange; height: 100px;">Bitten Coin Center</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-body bg-light">
+            <h3 style="text-align:center; font-weight: 900; color: orange">1 Bitten Coin</h3>
+            <div style="text-align:center"><img class="buy" src="{% static 'img/1-bit.png' %}" alt="My image"></div>
+            <div class="price">CNY 0.10</div>
+            <div><a class="btn btn-block btn-warning" href="{% url 'bill1' %}" style="color: white">BUY</a></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-body bg-light">
+            <h3 style="text-align:center; font-weight: 900; color: orange">6 Bitten Coin</h3>
+            <div style="text-align:center"><img class="buy" src="{% static 'img/6-bit.png' %}" alt="My image"></div>
+            <div class="price">CNY 0.50</div>
+            <div><a class="btn btn-block btn-warning" href="{% url 'bill2' %}" style="color: white">BUY</a></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-body bg-light">
+            <h3 style="text-align:center; font-weight: 900; color: orange">648 Bitten Coin</h3>
+            <div style="text-align:center"><img class="buy" src="{% static 'img/648-bit.png' %}" alt="My image"></div>
+            <div class="price">CNY 328.00</div>
+            <div><a class="btn btn-block btn-warning" href="{% url 'bill3' %}" style="color: white">BUY</a></div>
+        </div>
+    </div>
+</div>
+
+{% comment %} <div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h2 style="text-align:center; font-weight: 900; color: orange">Bitten Coin Center</h2>
+
+            <table class="table">
+                <thead>商品目录</thead>
+                <tr>
+                    <td>商品名</td>
+                    <td>商品单价</td>
+                    <td>商品数量</td>
+                    <td>是否购买</td>
+                </tr>
+                <tr>
+                    <td>Bittencoin</td>
+                    <td>0.1</td>
+                    <td>1</td>
+                    <td><a href="{% url 'bill' %}">购买</a></td>
+            </table>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+{% endblock %}

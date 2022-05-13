@@ -1,0 +1,189 @@
+{% extends 'includes/model.html' %}
+
+{% block content %}
+
+<style>
+    .profile-pic {
+        width: 50px;
+        height: 50px;
+        border: solid 5px #ffffff;
+        border-radius: 50%;
+    }
+
+    .post{
+        font-weight: 600;
+        color: grey;
+    }
+
+    .info{
+    }
+
+    .highlight{
+        font-weight: 900; 
+        color: orange;
+    }
+
+    .pic {
+        height: 100%;
+        width: 500px;
+    }
+</style>
+
+<div>
+</div>
+
+<h2 style="text-align:center; font-weight: 900; color: orange">Tasks Page </h2>
+<h3 style="font-size: 20px; font-weight: 300; text-align:center;color: orange">Total Public Posts: {{ task_num }}</h3>
+
+{% for task in my_tasks %}
+<div class="card card-body bg-light">
+    <h4 class="post">
+        <img class="profile-pic" src="{{task.buyer.client.photo.url}}" width="400" height="400"> &nbsp;{{task.buyer.client.nick_name}}
+    </h4>
+    <div>
+        <span class="info">
+            From <span class="highlight">{{task.take_addr}}</span> to <span class="highlight">{{task.send_addr}}</span>.
+        </span>
+        
+    </div>
+    <div style="height: 25px"></div>
+    <div style="color: grey;">
+        {{task.note}}
+    </div>
+    <div style="color: grey;">
+        {% if task.food_info %}
+            <img class="pic" src="{{task.food_info.url}}" width="400" height="400"> 
+        {% else %}
+            {% comment %} <img src="{% get_static_prefix %}img/fallback.jpg">  {% endcomment %}
+        {% endif %}
+        {% comment %} <img class="pic" src="{{task.food_info.url}}" width="400" height="400"> {% endcomment %}
+    </div>
+    <div style="height: 25px"></div>
+    <div style="color: orange;">
+        Bitten Coin Award: <span style="color: grey">{{task.coin_reward}}</span> &nbsp;&nbsp; Time Remaining: <span style="color: grey;">{{task.exp_min}}</span> min
+    </div>
+</div>
+<div style="height: 25px"></div>
+{% endfor %}
+
+{% for task in other_tasks %}
+<div class="card card-body bg-light">
+    <h4 class="post">
+        <img class="profile-pic" src="{{task.buyer.client.photo.url}}" width="400" height="400"> &nbsp;{{task.buyer.client.nick_name}}
+    </h4>
+    <div>
+        <span class="info">
+            From <span class="highlight">{{task.take_addr}}</span> to <span class="highlight">{{task.send_addr}}</span>.
+        </span>
+        
+    </div>
+    <div style="height: 25px"></div>
+    <div style="color: grey;">
+        {{task.note}}
+    </div>
+    <div style="color: grey;">
+        {% if task.food_info %}
+            <img class="pic" src="{{task.food_info.url}}" width="400" height="400"> 
+        {% else %}
+            {% comment %} <img src="{% get_static_prefix %}img/fallback.jpg">  {% endcomment %}
+        {% endif %}
+        {% comment %} <img class="pic" src="{{task.food_info.url}}" width="400" height="400"> {% endcomment %}
+    </div>
+    <div style="height: 25px"></div>
+    <div style="color: orange;">
+        Bitten Coin Award: <span style="color: grey">{{task.coin_reward}}</span> &nbsp;&nbsp; Time Remaining: <span style="color: grey;">{{task.exp_min}}</span> min
+        <span style="float: right">
+            <form action="" method="post" style="margin:0px;display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="Submit" value=Claim@{{task.id}}><!-- 只有它被点击 所以name冲突没关系 -->
+                <button class="btn btn-warning">Claim</button>
+            </form>
+        </span>
+    </div>
+</div>
+<div style="height: 25px"></div>
+{% endfor %}
+
+{% comment %} <div class="row">
+    <div class="col-md">
+        <div class="card card-body bg-light">
+            <h2 style="text-align:center; font-weight: 900; color: orange">Tasks Page </h2>
+            <h3 style="font-size: 20px; font-weight: 300">Total Public Posts: {{ task_num }}</h3>
+            <table class="table">
+                <tr>
+                    <th>Buyer</th>
+                    <th>Coin Reward</th>
+                    <th>Fetch address</th>
+                    <th>Destination</th>
+                    <th>Time Limit</th>
+                    <th></th>
+                </tr>
+
+                {% for task in other_tasks %}
+                <tr>
+                    <td>{{task.buyer.client.nick_name}}</td>
+                    <td>{{task.coin_reward}}</td>
+                    <td>{{task.take_addr}}</td>
+                    <td>{{task.send_addr}}</td>
+                    <td>{{task.exp_min}}</td>
+                    <td>
+                        <form action="" method="post" style="margin:0px;display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="Submit" value=Claim@{{task.id}}><!-- 只有它被点击 所以name冲突没关系 -->
+                            <button class="btn btn-sm btn-warning">Claim</button>
+                        </form>
+                    </td>
+                </tr>
+                
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div> {% endcomment %}
+
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body bg-light">
+            <h3 id="menu" style="text-align:center; font-weight: 900; color: orange; margin-bottom: -25">My Posts</h3>
+            <table class="table">
+                <tr>
+                    <th>Buyer</th>
+                    <th>Coin Reward</th>
+                    <th>Fetch address</th>
+                    <th>Destination</th>
+                    <th>Time Limit</th>
+                    <th></th>
+                </tr>
+
+                {% for task in my_tasks %}
+                <tr>
+                    <td>{{task.buyer.client.nick_name}}</td>
+                    <td>{{task.coin_reward}}</td>
+                    <td>{{task.take_addr}}</td>
+                    <td>{{task.send_addr}}</td>
+                    <td>{{task.exp_min}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-success" href="{% url 'Tasks_create' task.id %}">Update</a>
+                        <form action="" method="post" style="margin:0px;display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="Submit" value=Delete@{{task.id}}><!-- 只有它被点击 所以name冲突没关系 -->
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<a class="btn btn-outline-success  btn-sm btn-block" href="{% url 'Tasks_create' pk=0 %}">Post tasks</a>
+<script>
+    {% for msg in messages %}
+    alert('{{ msg.message }}');
+    {% endfor %}
+</script>
+{% endblock %}
